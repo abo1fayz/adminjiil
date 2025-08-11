@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>معهد القرآن - لوحة الإدارة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-quran"></i>
+                <h1>لوحة إدارة معهد القرآن</h1>
+            </div>
+            <nav>
+                <button class="btn" onclick="window.location.href='index.html'">
+                    <i class="fas fa-home"></i> الرئيسية
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="admin-panel">
+            <!-- قسم مصادقة المشرف -->
+            <div class="auth-section">
+                <h2><i class="fas fa-user-shield"></i> مصادقة المشرف</h2>
+                <div class="input-group">
+                    <label for="githubToken"><i class="fas fa-key"></i> توكن GitHub:</label>
+                    <input type="password" id="githubToken" placeholder="أدخل التوكن للوصول للبيانات">
+                    <button class="btn primary" onclick="loadStudents()">
+                        <i class="fas fa-sync-alt"></i> تحميل البيانات
+                    </button>
+                </div>
+            </div>
+
+            <!-- قسم إدارة الطلاب -->
+            <div class="section">
+                <h2><i class="fas fa-users"></i> إدارة الطلاب</h2>
+                
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>رقم الطالب</th>
+                                <th>الصورة</th>
+                                <th>الاسم</th>
+                                <th>المستوى</th>
+                                <th>التقدم</th>
+                                <th>الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentsTable"></tbody>
+                    </table>
+                </div>
+
+                <div class="form-container">
+                    <h3><i class="fas fa-user-edit"></i> إضافة/تعديل طالب</h3>
+                    <form id="studentForm">
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label for="studentId">رقم الطالب:</label>
+                                <input type="text" id="studentId" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="studentName">الاسم الكامل:</label>
+                                <input type="text" id="studentName" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label for="studentImage">رابط الصورة:</label>
+                                <input type="url" id="studentImage" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="studentLevel">المستوى:</label>
+                                <select id="studentLevel" required>
+                                    <option value="مبتدئ">مبتدئ</option>
+                                    <option value="متوسط">متوسط</option>
+                                    <option value="متقدم">متقدم</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn primary">
+                            <i class="fas fa-save"></i> حفظ البيانات
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- قسم إدارة الاختبارات -->
+            <div class="section">
+                <h2><i class="fas fa-clipboard-check"></i> إدارة الاختبارات</h2>
+                
+                <div class="form-container">
+                    <form id="testForm">
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label for="testStudentId">رقم الطالب:</label>
+                                <input type="text" id="testStudentId" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="testType">نوع الاختبار:</label>
+                                <select id="testType" required>
+                                    <option value="quranTests">أجزاء القرآن</option>
+                                    <option value="tajweedTests">التجويد</option>
+                                    <option value="lessonTests">الدروس</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div id="testFields">
+                            <!-- حقول ديناميكية حسب نوع الاختبار -->
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label for="testResult">النتيجة (%):</label>
+                                <input type="number" id="testResult" min="0" max="100" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="testDate">تاريخ الاختبار:</label>
+                                <input type="date" id="testDate" required>
+                            </div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="testNotes">ملاحظات:</label>
+                            <textarea id="testNotes" rows="3"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn primary">
+                            <i class="fas fa-plus-circle"></i> إضافة الاختبار
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة التفاصيل -->
+    <div id="detailsModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h3 id="modalTitle">تفاصيل الطالب</h3>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
