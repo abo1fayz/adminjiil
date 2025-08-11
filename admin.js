@@ -1,4 +1,4 @@
-// admin.js
+// admin.js - النسخة المصححة
 const GITHUB_API_URL = "https://api.github.com/repos/aboelfooz/jiil/contents/data.json";
 const DATA_URL = "https://raw.githubusercontent.com/aboelfooz/jiil/main/data.json";
 let currentData = { students: [] };
@@ -510,8 +510,9 @@ async function getFileSHA(token) {
     return data.sha;
 }
 
-// تحديث ملف البيانات على GitHub
+// تصحيح دالة تحديث ملف البيانات على GitHub
 async function updateGitHubFile(token, data, sha, message) {
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
     return await fetch(GITHUB_API_URL, {
         method: 'PUT',
         headers: {
@@ -520,7 +521,7 @@ async function updateGitHubFile(token, data, sha, message) {
         },
         body: JSON.stringify({
             message: message,
-            content: btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))),
+            content: content,
             sha: sha
         })
     });
