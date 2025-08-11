@@ -1,6 +1,6 @@
 // admin.js - النسخة المصححة
-const GITHUB_API_URL = "https://api.github.com/repos/aboelfooz/jiil/contents/data.json";
-const DATA_URL = "https://raw.githubusercontent.com/aboelfooz/jiil/main/data.json";
+const GITHUB_API_URL = "https://api.github.com/repos/abo1fayz/jiil/contents/data.json";
+const DATA_URL = "https://raw.githubusercontent.com/abo1fayz/jiil/main/data.json";
 let currentData = { students: [] };
 
 // عند تحميل الصفحة
